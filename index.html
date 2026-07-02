@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Agent Dashboard</title>
+  <style>
+    /* CSS: 디자인 및 레이아웃 */
+    :root {
+      --glass-bg: rgba(255, 255, 255, 0.1);
+      --glass-border: rgba(255, 255, 255, 0.2);
+      --text-main: #ffffff;
+      --text-muted: #e2e8f0;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Pretendard', -apple-system, sans-serif;
+      /* 트렌디한 그라데이션 배경 애니메이션 */
+      background: linear-gradient(45deg, #1e3c72, #2a5298, #6dd5ed, #2193b0);
+      background-size: 400% 400%;
+      animation: gradientBG 15s ease infinite;
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    @keyframes gradientBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    /* 글래스모피즘 메인 컨테이너 */
+    .dashboard-container {
+      background: var(--glass-bg);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--glass-border);
+      border-radius: 24px;
+      padding: 40px;
+      width: 100%;
+      max-width: 1000px;
+      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+    }
+
+    header {
+      margin-bottom: 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+    }
+
+    header h1 {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    header p {
+      color: var(--text-muted);
+      font-size: 14px;
+    }
+
+    .btn-update {
+      background: rgba(255, 255, 255, 0.2);
+      border: 1px solid var(--glass-border);
+      color: white;
+      padding: 10px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-weight: bold;
+    }
+
+    .btn-update:hover {
+      background: rgba(255, 255, 255, 0.3);
+      transform: translateY(-2px);
+    }
+
+    /* 카드 그리드 레이아웃 */
+    .grid-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--glass-border);
+      border-radius: 16px;
+      padding: 24px;
+      transition: transform 0.3s ease, background 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .card h3 {
+      font-size: 16px;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+    }
+
+    .card .value {
+      font-size: 32px;
+      font-weight: 700;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="dashboard-container">
+    <header>
+      <div>
+        <h1>SOHO 마케팅 & 인프라 현황</h1>
+        <p>AI Agent 통합 관리 대시보드</p>
+      </div>
+      <button class="btn-update" onclick="updateData()">데이터 동기화</button>
+    </header>
+
+    <main class="grid-cards">
+      <div class="card">
+        <h3>신규 소상공인 가입자</h3>
+        <div class="value" id="subscribers">1,284</div>
+      </div>
+      <div class="card">
+        <h3>인프라 공사 진행률</h3>
+        <div class="value" id="infra-progress">76%</div>
+      </div>
+      <div class="card">
+        <h3>일일 DB 처리량 (Excel 기준)</h3>
+        <div class="value" id="db-volume">45,210</div>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    // JS: 동적 상호작용 및 데이터 처리
+    function updateData() {
+      const btn = document.querySelector('.btn-update');
+      
+      // 버튼 클릭 시 시각적 피드백
+      btn.innerText = "업데이트 중...";
+      btn.style.opacity = "0.7";
+
+      // 약간의 지연(1초)을 주어 데이터가 통신되는 것처럼 연출
+      setTimeout(() => {
+        // 랜덤 데이터를 생성하여 화면에 반영
+        document.getElementById('subscribers').innerText = (1200 + Math.floor(Math.random() * 200)).toLocaleString();
+        document.getElementById('infra-progress').innerText = (70 + Math.floor(Math.random() * 20)) + "%";
